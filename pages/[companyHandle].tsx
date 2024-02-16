@@ -11,7 +11,7 @@ export default function Home() {
 
       <CompanyHeader />
 
-      <Tabs>
+      <Tabs className={'mt-6'}>
         <Tab key="info" title="Customer overview">
           <p>We are showing company info here</p>
         </Tab>

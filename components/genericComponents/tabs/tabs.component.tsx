@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-const Tabs = ({ children }) => {
+const Tabs = ({ children, className }) => {
     const [active, setActive] = useState(0);
     const router = useRouter();
     const { tab } = router.query;
@@ -26,7 +26,7 @@ const Tabs = ({ children }) => {
     }
 
     return (
-        <div className=''>
+        <div className={className}>
             <div className='flex'>
                 {children.map((child, index) => (
                     <Link href="#" className={`${index === active ? ' border-blue-800 font-bold' : 'border-white'} border-b-2 w-full`} key={`tab-${index}`} onClick={e => handleClick(e, child.key, child.props.onClick)}>
