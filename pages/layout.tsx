@@ -9,10 +9,10 @@ const Layout = ({ children }) => {
                 <title>Your Website Title</title>
                 <meta name="description" content="Your website description" />
             </header>
-            <main className='flex justify-center'>
-                <div >
+            <main>
+                <div className='w-full flex justify-center'>
                     <Navbar />
-                    <div className='container'>{children}</div>
+                    <div className='container mt-16'>{children}</div>
                 </div>
             </main >
             <footer>

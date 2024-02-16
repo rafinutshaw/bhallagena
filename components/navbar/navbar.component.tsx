@@ -4,7 +4,7 @@ import React from 'react'
 
 const Navbar = () => {
     return (
-        <div className='flex justify-center border-b-2 absolute w-full left-0 right-0'>
+        <div className='flex justify-center border-b-2 absolute w-full left-0 right-0 bg-white'>
             <div className='container flex justify-between items-center '>
                 <div className='flex-grow h-14 flex items-center'>
                     <Image src={'/images/logo.png'} alt='applogo' width={200} height={50} />
