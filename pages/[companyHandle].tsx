@@ -4,15 +4,17 @@ import Tab from '../components/genericComponents/tabs/tab.component';
 import CompanyHeader from '../components/genericComponents/companyHeader/companyHeader';
 
 export default function Home() {
+
   const params = useParams()
   console.log(params)
+
   return (
     <div >
 
       <CompanyHeader />
 
       <Tabs className={'mt-6'}>
-        <Tab key="info" title="Customer overview">
+        <Tab key="info" title="Company overview">
           <p>We are showing company info here</p>
         </Tab>
         <Tab key="payment-history" title="Interview experience">
