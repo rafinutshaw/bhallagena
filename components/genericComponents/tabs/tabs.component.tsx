@@ -1,24 +1,22 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Tabs = ({ children, className }) => {
-    const [active, setActive] = useState();
+    const [active, setActive] = useState("");
     const router = useRouter();
     const { tab } = router.query;
 
-    useEffect(() => {
-        updateActiveTab();
-    }, [tab])
+    useEffect(() => updateActiveTab(), [tab])
 
     const updateActiveTab = useCallback(
         () => {
             if (!tab) return;
 
-            const index = children.map(child => child.key).indexOf(tab);
+            const index = children.findIndex(child => child.key == tab);
 
             if (index < 0) return;
-            setActive(index);
+            setActive(children[index].key);
         },
         [tab]
     );
@@ -31,20 +29,26 @@ const Tabs = ({ children, className }) => {
         cb && cb();
     }
 
+    const getContent = useMemo(() => {
+        const index = children.findIndex(child => child.key == active);
+        if (index < 0) return <></>
+        return children[index]
+    }, [active])
+
     return (
         <div className={className}>
             <div className='flex'>
                 {children.map((child, index) => (
-                    <Link href="#" className={`${index === active ? ' border-blue-800 font-bold' : 'border-white'} border-b-2 w-full`}
+                    <Link href="#" className={`${child.key === active ? ' border-blue-800 font-bold' : 'border-white'} border-b-2 w-full`}
                         key={`tab-${index}`}
-                        onClick={e => handleClick(e, index, child.props.onClick)}>
+                        onClick={e => handleClick(e, child.key, child.props.onClick)}>
                         <div className=' shadow h-14 flex justify-center items-center'>
                             {child.props.title}
                         </div>
                     </Link>
                 ))}
             </div>
-            <div >{children[active]}</div>
+            <div >{getContent}</div>
         </div>
     )
 }
