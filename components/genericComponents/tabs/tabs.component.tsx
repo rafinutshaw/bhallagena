@@ -1,21 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Tabs = ({ children, className }) => {
-    const [active, setActive] = useState(0);
+    const [active, setActive] = useState("");
     const router = useRouter();
     const { tab } = router.query;
 
     useEffect(() => {
-        if (!tab) return;
+        updateActiveTab();
+    }, [tab])
 
-        const index = children.map(child => child.key).indexOf(tab);
+    const updateActiveTab = useCallback(
+        () => {
+            if (!tab) return;
 
-        if (index < 0) return;
+            const index = children.map(child => child.key).indexOf(tab);
 
-        setActive(index);
-    }, [router.query])
+            if (index < 0) return;
+            if (typeof tab === 'string')
+                setActive(tab);
+        },
+        [tab]
+    );
 
     const handleClick = (e, index, cb = () => { }) => {
         e.preventDefault();
@@ -29,7 +36,7 @@ const Tabs = ({ children, className }) => {
         <div className={className}>
             <div className='flex'>
                 {children.map((child, index) => (
-                    <Link href="#" className={`${index === active ? ' border-blue-800 font-bold' : 'border-white'} border-b-2 w-full`} key={`tab-${index}`} onClick={e => handleClick(e, child.key, child.props.onClick)}>
+                    <Link href="#" className={`${child.key === active ? ' border-blue-800 font-bold' : 'border-white'} border-b-2 w-full`} key={`tab-${index}`} onClick={e => handleClick(e, child.key, child.props.onClick)}>
                         <div className=' shadow h-14 flex justify-center items-center'>
                             {child.props.title}
                         </div>
