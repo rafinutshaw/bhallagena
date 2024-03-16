@@ -10,7 +10,6 @@ import { useRouter } from "next/router";
 export default function CompanyPage({ companyInfo }) {
   const router = useRouter();
 
-  if (router.isFallback) return <h1>Loading...</h1>;
   return (
     <div>
       <CompanyHeader
@@ -30,7 +29,7 @@ export default function CompanyPage({ companyInfo }) {
 export const getStaticPaths: GetStaticPaths<any> = async (context) => {
   return {
     paths: [],
-    fallback: true,
+    fallback: "blocking",
   };
 };
 
@@ -44,6 +43,11 @@ export const getStaticProps: GetStaticProps<any> = async (context) => {
   const companyInfo = await db
     .collection("company-info")
     .findOne({ _id: companyHandle } as any);
+
+  if (!companyInfo)
+    return {
+      notFound: true,
+    };
 
   return {
     props: {
