@@ -3,50 +3,38 @@ import LinkedinIcon from "../../../icons/linkedin.icon";
 import PlusIcon from "../../../icons/plus.icon";
 import NewTab from "../../../icons/newTab";
 import MinusIcon from "../../../icons/minus.icon";
-function CompanyOverview() {
+function CompanyOverview({ info }) {
   return (
     <div className="bg-white border-b-2 p-4">
-      <div>
-        Google LLC is an American multinational technology company that
-        specializes in Internet-related services and products, which include
-        online advertising technologies, a search engine, cloud computing,
-        software, and hardware.
-      </div>
+      <div>{info.short_profile}</div>
       <div className="mt-2">
         <div className="py-4">
           <a
-            href="https://www.google.com/"
+            href={info.company_link}
             className="bg-blue-500 inline-flex gap-1 border-2 border-blue-500 text-white rounded-md px-1 hover:bg-white hover:text-black "
           >
             Visit website <NewTab size={20} />
           </a>
           <div className="flex gap-2 py-2">
-            <a href="linkedin.com">
-              <LinkedinIcon size={20} />
-            </a>
-            <a href="linkedin.com">
-              <LinkedinIcon size={20} />
-            </a>
-            <a href="linkedin.com">
-              <LinkedinIcon size={20} />
-            </a>
-            <a href="linkedin.com">
-              <LinkedinIcon size={20} />
-            </a>
+            {info.linkedin_profile && (
+              <a href={info.linkedin_profile}>
+                <LinkedinIcon size={20} />
+              </a>
+            )}
           </div>
         </div>
 
         <div className="flex gap-16 py-4">
           <div>
             <strong> Founded</strong>
-            <div>2020</div>
+            <div>{info.establishment_year}</div>
           </div>
           <div>
             <strong> Size</strong>
             <div>1000-2000</div>
           </div>
           <div>
-            <strong> Location</strong>
+            <strong>Location</strong>
             <div>Dhaka, Bangladesh</div>
           </div>
           <div>

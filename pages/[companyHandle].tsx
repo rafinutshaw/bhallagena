@@ -3,23 +3,51 @@ import Tabs from "../components/genericComponents/tabs/tabs.component";
 import Tab from "../components/genericComponents/tabs/tab.component";
 import CompanyHeader from "../components/genericComponents/companyHeader/companyHeader";
 import CompanyOverview from "../components/appComponents/company/companyOverview";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { connectToDatabase } from "../lib/mongodb";
+import { useRouter } from "next/router";
 
-export default function Home() {
+export default function CompanyPage({ companyInfo }) {
+  const router = useRouter();
+
+  if (router.isFallback) return <h1>Loading...</h1>;
   return (
     <div>
-      <CompanyHeader />
-
+      <CompanyHeader
+        title={companyInfo.company_name}
+        logoSrc={companyInfo.logo_link}
+      />
       <Tabs className={"mt-6"} defaultTab="info">
         <Tab key="info" title="Company overview">
-          <CompanyOverview />
+          <CompanyOverview info={companyInfo} />
         </Tab>
-        <Tab key="payment-history" title="Interview experience">
-          <p>We are showing company interviews here</p>
-        </Tab>
-        <Tab key="payment-methods" title="Salary info">
-          <p>We are showing company salary here</p>
-        </Tab>
+        <></>
       </Tabs>
     </div>
   );
 }
+
+export const getStaticPaths: GetStaticPaths<any> = async (context) => {
+  return {
+    paths: [],
+    fallback: true,
+  };
+};
+
+export const getStaticProps: GetStaticProps<any> = async (context) => {
+  const { companyHandle } = context.params;
+
+  const client = await connectToDatabase();
+  const db = client.db("cp-db");
+
+  // Get  company info by if from collection
+  const companyInfo = await db
+    .collection("company-info")
+    .findOne({ _id: companyHandle } as any);
+
+  return {
+    props: {
+      companyInfo,
+    },
+  };
+};

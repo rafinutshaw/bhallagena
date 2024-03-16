@@ -38,9 +38,7 @@ const Tabs = ({ children, className, defaultTab }) => {
           <Link
             href={`${params?.companyHandle}?tab=${child.key}`}
             className={`${
-              child.key === active
-                ? " border-blue-800 font-bold"
-                : "border-white"
+              child.key === active ? " border-blue-800 font-bold" : "hidden"
             } border-b-2 w-full`}
             key={`tab-${index}`}
             onClick={(e) => handleClick(child.props.onClick)}
