@@ -1,20 +1,17 @@
-import { useParams } from 'next/navigation';
-import Tabs from '../components/genericComponents/tabs/tabs.component';
-import Tab from '../components/genericComponents/tabs/tab.component';
-import CompanyHeader from '../components/genericComponents/companyHeader/companyHeader';
+import { useParams } from "next/navigation";
+import Tabs from "../components/genericComponents/tabs/tabs.component";
+import Tab from "../components/genericComponents/tabs/tab.component";
+import CompanyHeader from "../components/genericComponents/companyHeader/companyHeader";
+import CompanyOverview from "../components/appComponents/company/companyOverview";
 
 export default function Home() {
-
-  const params = useParams()
-
   return (
-    <div >
-
+    <div>
       <CompanyHeader />
 
-      <Tabs className={'mt-6'}>
+      <Tabs className={"mt-6"} defaultTab="info">
         <Tab key="info" title="Company overview">
-          <p>We are showing company info here</p>
+          <CompanyOverview />
         </Tab>
         <Tab key="payment-history" title="Interview experience">
           <p>We are showing company interviews here</p>
