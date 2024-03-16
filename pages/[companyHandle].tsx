@@ -6,12 +6,14 @@ import CompanyOverview from "../components/appComponents/company/companyOverview
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { connectToDatabase } from "../lib/mongodb";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export default function CompanyPage({ companyInfo }) {
-  const router = useRouter();
-
   return (
     <div>
+      <Head>
+        <title>Bhallagena - {companyInfo.company_name}</title>
+      </Head>
       <CompanyHeader
         title={companyInfo.company_name}
         logoSrc={companyInfo.logo_link}
