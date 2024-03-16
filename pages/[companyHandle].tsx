@@ -1,11 +1,9 @@
-import { useParams } from "next/navigation";
 import Tabs from "../components/genericComponents/tabs/tabs.component";
 import Tab from "../components/genericComponents/tabs/tab.component";
 import CompanyHeader from "../components/genericComponents/companyHeader/companyHeader";
 import CompanyOverview from "../components/appComponents/company/companyOverview";
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { connectToDatabase } from "../lib/mongodb";
-import { useRouter } from "next/router";
 import Head from "next/head";
 
 export default function CompanyPage({ companyInfo }) {

@@ -10,6 +10,7 @@ function CompanyOverview({ info }) {
       <div className="mt-2">
         <div className="py-4">
           <a
+            target="_blank"
             href={info.company_link}
             className="bg-blue-500 inline-flex gap-1 border-2 border-blue-500 text-white rounded-md px-1 hover:bg-white hover:text-black "
           >
